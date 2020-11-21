@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.supensour</groupId>
+  <artifactId>supensour</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>supensour-bean-validation</module>
+    <module>supensour-core</module>
+    <module>supensour-model</module>
+    <module>supensour-reactor</module>
+    <module>supensour-swagger</module>
+    <module>supensour-web</module>
+    <module>supensour-webflux</module>
+  </modules>
+
+  <name>supensour</name>
+  <description>A Java spring-boot-based library</description>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.4.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
+  <scm>
+    <connection>scm:git:https://github.com/supensour/supensour.git</connection>
+    <developerConnection>scm:git:git@github.com:supensour/supensour.git</developerConnection>
+    <url>https://github.com/supensour/supensour</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>11</java.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Modules -->
+      <dependency>
+        <groupId>com.supensour</groupId>
+        <artifactId>supensour-bean-validation</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.supensour</groupId>
+        <artifactId>supensour-core</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.supensour</groupId>
+        <artifactId>supensour-model</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.supensour</groupId>
+        <artifactId>supensour-reactor</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.supensour</groupId>
+        <artifactId>supensour-swagger</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.supensour</groupId>
+        <artifactId>supensour-web</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.supensour</groupId>
+        <artifactId>supensour-webflux</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <repositories>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>bintray-supensour-releases</id>
+      <name>bintray-supensour-releases</name>
+      <url>https://dl.bintray.com/supensour/maven-releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>bintray-supensour-snapshots</id>
+      <name>bintray-supensour-snapshots</name>
+      <url>https://dl.bintray.com/supensour/maven-snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>bintray-supensour-releases</id>
+      <name>bintray-supensour-releases</name>
+      <url>https://api.bintray.com/maven/supensour/maven-releases/com.supensour:supensour/;publish=1</url>
+    </repository>
+    <snapshotRepository>
+      <id>bintray-supensour-snapshots</id>
+      <name>bintray-supensour-snapshots</name>
+      <url>https://api.bintray.com/maven/supensour/maven-snapshots/com.supensour:supensour/;publish=1</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+</project>

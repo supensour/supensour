@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.supensour.swagger.config.SwaggerAutoConfiguration,\
+  com.supensour.swagger.config.defaults.SwaggerReactorConfiguration,\
+  com.supensour.swagger.config.defaults.SwaggerRxJavaConfiguration,\
+  com.supensour.swagger.config.defaults.SwaggerWebConfiguration
