@@ -184,7 +184,7 @@ public interface BaseErrorControllerHandler {
   @SuppressWarnings("DuplicatedCode")
   private HttpStatus resolveGeneralThrowableStatus(Throwable throwable) {
     HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-    ResponseStatus responseStatus = throwable.getClass().getAnnotation(ResponseStatus.class);
+    var responseStatus = throwable.getClass().getAnnotation(ResponseStatus.class);
     if (responseStatus != null) {
       if (responseStatus.code() == responseStatus.value() || responseStatus.code() != HttpStatus.INTERNAL_SERVER_ERROR) {
         status = responseStatus.code();
@@ -205,7 +205,7 @@ public interface BaseErrorControllerHandler {
 
   @SuppressWarnings("DuplicatedCode")
   default String getMessage(Throwable e, HttpServletRequest request, HttpServletResponse response, Object errors) {
-    StringBuilder messageBuilder = new StringBuilder(e.getClass().getName());
+    var messageBuilder = new StringBuilder(e.getClass().getName());
 
     Optional.ofNullable(e.getMessage())
         .filter(StringUtils::hasText)
@@ -218,7 +218,7 @@ public interface BaseErrorControllerHandler {
   }
 
   default String getLogPrefix(Throwable e, HttpServletRequest request, HttpServletResponse response) {
-    StringBuilder prefix = new StringBuilder();
+    var prefix = new StringBuilder();
 
     Optional.ofNullable(getRequestId(e, request, response))
         .filter(StringUtils::hasText)

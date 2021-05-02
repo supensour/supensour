@@ -30,7 +30,7 @@ public class RandomUtils {
    * @return random sequence of digits
    */
   public static String digit(int length) {
-    StringBuilder result = new StringBuilder();
+    var result = new StringBuilder();
     while (result.length() < length) {
       result.append(random.nextInt((int) Math.pow(10, length)));
     }
@@ -45,7 +45,7 @@ public class RandomUtils {
    * @return random sequence of alphabets
    */
   public static String alphabet(int length) {
-    StringBuilder result = new StringBuilder();
+    var result = new StringBuilder();
     while (result.length() < length) {
       result.append(UUID.randomUUID().toString().replaceAll("[^a-zA-Z]", ""));
     }
@@ -60,7 +60,7 @@ public class RandomUtils {
    * @return random sequence of alphabets
    */
   public static String alphaNumeric(int length) {
-    StringBuilder result = new StringBuilder();
+    var result = new StringBuilder();
     while (result.length() < length) {
       result.append(UUID.randomUUID().toString().replaceAll("[^a-zA-Z0-9]", ""));
     }

@@ -97,7 +97,7 @@ public abstract class AbstractWebExceptionHandler extends AbstractEmptyWebExcept
 
   @SuppressWarnings("DuplicatedCode")
   protected HttpStatus resolveGeneralThrowableStatus(Throwable throwable) {
-    HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+    var status = HttpStatus.INTERNAL_SERVER_ERROR;
     ResponseStatus responseStatus = throwable.getClass().getAnnotation(ResponseStatus.class);
     if (responseStatus != null) {
       if (responseStatus.code() == responseStatus.value() || responseStatus.code() != HttpStatus.INTERNAL_SERVER_ERROR) {

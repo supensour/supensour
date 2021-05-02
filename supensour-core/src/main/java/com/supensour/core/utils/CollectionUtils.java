@@ -381,7 +381,7 @@ public class CollectionUtils {
     Objects.requireNonNull(collectionSupplier, NULL_COLLECTION_SUPPLIER);
     Objects.requireNonNull(key, NULL_KEY);
     map = Optional.ofNullable(map).orElseGet(HashMap::new);
-    C list = map.computeIfAbsent(key, k -> collectionSupplier.get());
+    var list = map.computeIfAbsent(key, k -> collectionSupplier.get());
     list.add(value);
     return map;
   }
@@ -427,7 +427,7 @@ public class CollectionUtils {
   public static <K, V, C extends Collection<V>> Map<K, C> addAllToMultiValueMap(Map<K, C> map, K key, Collection<V> value, Supplier<C> collectionSupplier) {
     Objects.requireNonNull(key, NULL_KEY);
     map = Optional.ofNullable(map).orElseGet(HashMap::new);
-    C list = map.computeIfAbsent(key, k -> collectionSupplier.get());
+    var list = map.computeIfAbsent(key, k -> collectionSupplier.get());
     list.addAll(value);
     return map;
   }

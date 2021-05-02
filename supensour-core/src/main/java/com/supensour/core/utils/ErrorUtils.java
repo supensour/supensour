@@ -130,7 +130,7 @@ public class ErrorUtils {
   }
 
   public static String getDefaultPath(ConstraintViolation<?> constraintViolation, String separator) {
-    Path path = constraintViolation.getPropertyPath();
+    var path = constraintViolation.getPropertyPath();
     List<String> nodes = new ArrayList<>();
     path.iterator().forEachRemaining(node -> Optional.ofNullable(node)
         .map(Path.Node::getName)
@@ -148,7 +148,7 @@ public class ErrorUtils {
   }
 
   public static String getPath(ServerWebInputException e) {
-    MethodParameter parameter = e.getMethodParameter();
+    var parameter = e.getMethodParameter();
     if (parameter == null) {
       return FieldNames.UNKNOWN;
     }

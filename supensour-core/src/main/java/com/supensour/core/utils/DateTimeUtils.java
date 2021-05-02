@@ -53,7 +53,7 @@ public class DateTimeUtils {
    * @return formatted date
    */
   public static String formatDate(String format, Long milliseconds, Locale locale, TimeZone timezone) {
-    Date date = Optional.ofNullable(milliseconds)
+    var date = Optional.ofNullable(milliseconds)
         .map(Date::new)
         .orElse(null);
     return formatDate(format, date, locale, timezone);
@@ -76,7 +76,7 @@ public class DateTimeUtils {
     date = Optional.ofNullable(date).orElseGet(DateTimeUtils::currentDate);
     locale = Optional.ofNullable(locale).orElseGet(Locale::getDefault);
     timezone = Optional.ofNullable(timezone).orElseGet(TimeZone::getDefault);
-    SimpleDateFormat formatter = new SimpleDateFormat(format, locale);
+    var formatter = new SimpleDateFormat(format, locale);
     formatter.setTimeZone(timezone);
     return formatter.format(date);
   }
@@ -179,7 +179,7 @@ public class DateTimeUtils {
   public static Date getStartOfDay(TimeZone timezone, Long milliseconds) {
     timezone = Optional.ofNullable(timezone).orElseGet(TimeZone::getDefault);
     milliseconds = Optional.ofNullable(milliseconds).orElseGet(DateTimeUtils::currentMillis);
-    Calendar calendar = Calendar.getInstance(timezone);
+    var calendar = Calendar.getInstance(timezone);
     calendar.setTimeInMillis(milliseconds);
     calendar.set(Calendar.HOUR_OF_DAY, 0);
     calendar.set(Calendar.MINUTE, 0);
@@ -256,7 +256,7 @@ public class DateTimeUtils {
   public static Date getEndOfDay(TimeZone timezone, Long milliseconds) {
     timezone = Optional.ofNullable(timezone).orElseGet(TimeZone::getDefault);
     milliseconds = Optional.ofNullable(milliseconds).orElseGet(DateTimeUtils::currentMillis);
-    Calendar calendar = Calendar.getInstance(timezone);
+    var calendar = Calendar.getInstance(timezone);
     calendar.setTimeInMillis(milliseconds);
     calendar.set(Calendar.HOUR_OF_DAY, calendar.getMaximum(Calendar.HOUR_OF_DAY));
     calendar.set(Calendar.MINUTE, calendar.getMaximum(Calendar.MINUTE));

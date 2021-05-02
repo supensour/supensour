@@ -61,7 +61,7 @@ class ReactorContextHelperImpl implements ReactorContextHelper {
           .map(ctx -> ctx.get(key))
           .orElse(null);
     } catch (Exception e) {
-      String message = String.format("Failed to get injected reactor context of key %s", key);
+      var message = String.format("Failed to get injected reactor context of key %s", key);
       throw new IllegalStateException(message, e);
     }
   }

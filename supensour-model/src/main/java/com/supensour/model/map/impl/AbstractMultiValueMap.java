@@ -145,7 +145,7 @@ public abstract class AbstractMultiValueMap<K, V, C extends Collection<V>> exten
   public Map<K, V> toSingleValueMap() {
     Map<K, V> map = new LinkedHashMap<>();
     for (Entry<K, C> entry: entrySet()) {
-      V value = Optional.ofNullable(entry.getValue())
+      var value = Optional.ofNullable(entry.getValue())
           .map(Collection::iterator)
           .filter(Iterator::hasNext)
           .map(Iterator::next)
@@ -156,7 +156,7 @@ public abstract class AbstractMultiValueMap<K, V, C extends Collection<V>> exten
   }
 
   private C cloneValues(C values) {
-    C newValues = newCollection();
+    var newValues = newCollection();
     newValues.addAll(values);
     return newValues;
   }

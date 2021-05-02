@@ -75,7 +75,7 @@ public abstract class AbstractEmptyWebExceptionHandler extends DefaultErrorWebEx
 
   @Override
   protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
-    Throwable throwable = getError(request);
+    var throwable = getError(request);
     Response<Object> response = handleException(throwable, request);
     if (response == null) {
       return Mono.error(throwable);
@@ -107,7 +107,7 @@ public abstract class AbstractEmptyWebExceptionHandler extends DefaultErrorWebEx
 
   @SuppressWarnings("DuplicatedCode")
   protected String getMessage(Throwable e, ServerRequest request, Object errors) {
-    StringBuilder messageBuilder = new StringBuilder(e.getClass().getName());
+    var messageBuilder = new StringBuilder(e.getClass().getName());
 
     Optional.ofNullable(e.getMessage())
         .filter(StringUtils::hasText)
@@ -120,7 +120,7 @@ public abstract class AbstractEmptyWebExceptionHandler extends DefaultErrorWebEx
   }
 
   protected String getLogPrefix(Throwable e, ServerRequest request) {
-    StringBuilder prefix = new StringBuilder();
+    var prefix = new StringBuilder();
 
     Optional.ofNullable(getRequestId(e, request))
         .filter(StringUtils::hasText)

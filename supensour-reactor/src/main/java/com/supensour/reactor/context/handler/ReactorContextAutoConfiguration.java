@@ -46,7 +46,7 @@ public class ReactorContextAutoConfiguration implements ApplicationContextAware,
   }
 
   private List<ReactorContextSetting<Object>> getReactorContextSettings() {
-    ReactorContextSettingRegistry registry = ReactorContextSettingRegistry.create();
+    var registry = ReactorContextSettingRegistry.create();
     applicationContext.getBeansOfType(ReactorContextConfiguration.class)
         .forEach((key, config) -> config.registerContextSetting(registry));
     return registry.collect();

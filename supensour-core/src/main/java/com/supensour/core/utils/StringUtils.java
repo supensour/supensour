@@ -42,7 +42,7 @@ public class StringUtils extends org.springframework.util.StringUtils {
    */
   public static List<String> match(String value, String regex) {
     List<String> matches = new ArrayList<>();
-    Matcher matcher = getMatcher(value, regex);
+    var matcher = getMatcher(value, regex);
     while (matcher.find()) {
       matches.add(matcher.group());
     }
@@ -60,7 +60,7 @@ public class StringUtils extends org.springframework.util.StringUtils {
    */
   public static List<String> match(String value, String regex, int maxCount) {
     List<String> matches = new ArrayList<>();
-    Matcher matcher = getMatcher(value, regex);
+    var matcher = getMatcher(value, regex);
     while (matcher.find() && matches.size() < maxCount) {
       matches.add(matcher.group());
     }
@@ -231,15 +231,15 @@ public class StringUtils extends org.springframework.util.StringUtils {
   }
 
   private static Matcher getMatcher(String value, String regex) {
-    Pattern pattern = Pattern.compile(regex);
+    var pattern = Pattern.compile(regex);
     return pattern.matcher(value);
   }
 
   private static String buildSplitPattern(Character separator) {
-    String withoutSeparator = "^[^%s]*$";
-    String startBeforeSeparator = "^[^%s]*(?=%s)";
-    String endAfterSeparator = "(?<=%s)[^%s]*$";
-    String surroundedBySeparator = "(?<=%s)[^%s]*(?=%s)";
+    var withoutSeparator = "^[^%s]*$";
+    var startBeforeSeparator = "^[^%s]*(?=%s)";
+    var endAfterSeparator = "(?<=%s)[^%s]*$";
+    var surroundedBySeparator = "(?<=%s)[^%s]*(?=%s)";
     return new StringBuilder()
         .append(String.format(withoutSeparator, separator)).append("|")
         .append(String.format(startBeforeSeparator, separator, separator)).append("|")

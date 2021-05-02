@@ -43,7 +43,7 @@ public class PagingUtils {
     Assert.notNull(page, "Paging request is null");
     Assert.notNull(page.getNumber(), "Page number is null");
     Assert.notNull(page.getSize(), "Page size is null");
-    Sort sort = Optional.ofNullable(sortingRequests)
+    var sort = Optional.ofNullable(sortingRequests)
         .filter(CollectionUtils::isNotEmpty)
         .map(PagingUtils::toOrders)
         .map(Sort::by)
