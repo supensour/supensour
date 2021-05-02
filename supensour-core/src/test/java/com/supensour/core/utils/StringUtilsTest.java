@@ -102,4 +102,49 @@ class StringUtilsTest {
     assertEquals("Lorem ipsum dolor sit", StringUtils.subString(text, null, 255));
   }
 
+  @Test
+  void getLevenshteinDistance() {
+    assertEquals(3, StringUtils.getLevenshteinDistance("kitten", "sitting"));
+    assertEquals(3, StringUtils.getLevenshteinDistance("sitting", "kitten"));
+    assertEquals(1, StringUtils.getLevenshteinDistance("a random string", "a randoms string"));
+    assertEquals(1, StringUtils.getLevenshteinDistance("a randoms string", "a random string"));
+    assertEquals(0, StringUtils.getLevenshteinDistance("same string", "same string"));
+    assertEquals(0, StringUtils.getLevenshteinDistance("same string", "same string"));
+    assertEquals(0, StringUtils.getLevenshteinDistance("", ""));
+    assertEquals(0, StringUtils.getLevenshteinDistance("test", "test"));
+    assertEquals(7, StringUtils.getLevenshteinDistance("a random string", "b rant0m 5+n1ng"));
+    assertEquals(7, StringUtils.getLevenshteinDistance("b rant0m 5+n1ng", "a random string"));
+    assertEquals(43, StringUtils.getLevenshteinDistance("a random string again and again, a long one", "z"));
+    assertEquals(43, StringUtils.getLevenshteinDistance("z", "a random string again and again, a long one"));
+    assertEquals(34, StringUtils.getLevenshteinDistance("a random string again and again, a long one", "b rant0m 5+n1ng"));
+    assertEquals(34, StringUtils.getLevenshteinDistance("b rant0m 5+n1ng", "a random string again and again, a long one"));
+    assertEquals(14, StringUtils.getLevenshteinDistance("a random string", "asdb rant0m df5+n1ngasd"));
+    assertEquals(14, StringUtils.getLevenshteinDistance("asdb rant0m df5+n1ngasd", "a random string"));
+  }
+
+  @Test
+  void getSimilarityWithLevenshteinDistance() {
+    assertEquals(0.57142, getSimilarityWithLevenshteinDistance("kitten", "sitting"));
+    assertEquals(0.57142, getSimilarityWithLevenshteinDistance("sitting", "kitten"));
+    assertEquals(0.9375, getSimilarityWithLevenshteinDistance("a random string", "a randoms string"));
+    assertEquals(0.9375, getSimilarityWithLevenshteinDistance("a randoms string", "a random string"));
+    assertEquals(1, getSimilarityWithLevenshteinDistance("same string", "same string"));
+    assertEquals(1, getSimilarityWithLevenshteinDistance("same string", "same string"));
+    assertEquals(1, getSimilarityWithLevenshteinDistance("", ""));
+    assertEquals(1, getSimilarityWithLevenshteinDistance("test", "test"));
+    assertEquals(0.53333, getSimilarityWithLevenshteinDistance("a random string", "b rant0m 5+n1ng"));
+    assertEquals(0.53333, getSimilarityWithLevenshteinDistance("b rant0m 5+n1ng", "a random string"));
+    assertEquals(0, getSimilarityWithLevenshteinDistance("a random string again and again, a long one", "z"));
+    assertEquals(0, getSimilarityWithLevenshteinDistance("z", "a random string again and again, a long one"));
+    assertEquals(0.20930, getSimilarityWithLevenshteinDistance("a random string again and again, a long one", "b rant0m 5+n1ng"));
+    assertEquals(0.20930, getSimilarityWithLevenshteinDistance("b rant0m 5+n1ng", "a random string again and again, a long one"));
+    assertEquals(0.39130, getSimilarityWithLevenshteinDistance("a random string", "asdb rant0m df5+n1ngasd"));
+    assertEquals(0.39130, getSimilarityWithLevenshteinDistance("asdb rant0m df5+n1ngasd", "a random string"));
+  }
+
+  private double getSimilarityWithLevenshteinDistance(String str1, String str2) {
+    double result = StringUtils.getSimilarityWithLevenshteinDistance(str1, str2);
+    return ((int) (result * 100_000)) / 100_000.0;
+  }
+
 }
