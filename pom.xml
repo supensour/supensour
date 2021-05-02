@@ -18,6 +18,23 @@
 
   <name>supensour</name>
   <description>A Java spring-boot-based library</description>
+  <url>https://github.com/supensour/supensour</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Suprayan Yapura</name>
+      <email>SuprayanY@yahoo.com</email>
+      <organization>Supensour</organization>
+      <organizationUrl>https://github.com/supensour/supensour</organizationUrl>
+    </developer>
+  </developers>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -105,34 +122,18 @@
         <enabled>false</enabled>
       </releases>
     </repository>
-    <repository>
-      <id>bintray-supensour-releases</id>
-      <name>bintray-supensour-releases</name>
-      <url>https://dl.bintray.com/supensour/maven-releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>bintray-supensour-snapshots</id>
-      <name>bintray-supensour-snapshots</name>
-      <url>https://dl.bintray.com/supensour/maven-snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
   </repositories>
 
   <distributionManagement>
     <repository>
-      <id>bintray-supensour-releases</id>
-      <name>bintray-supensour-releases</name>
-      <url>https://api.bintray.com/maven/supensour/maven-releases/com.supensour:supensour/;publish=1</url>
+      <id>supensour.sonatype.org</id>
+      <name>Supensour Sonatype Repository</name>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
     </repository>
     <snapshotRepository>
-      <id>bintray-supensour-snapshots</id>
-      <name>bintray-supensour-snapshots</name>
-      <url>https://api.bintray.com/maven/supensour/maven-snapshots/com.supensour:supensour/;publish=1</url>
+      <id>supensour.sonatype.org</id>
+      <name>Supensour Sonatype Snapshot Repository</name>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
