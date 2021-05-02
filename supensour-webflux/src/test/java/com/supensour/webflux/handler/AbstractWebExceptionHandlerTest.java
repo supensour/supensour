@@ -130,7 +130,7 @@ class AbstractWebExceptionHandlerTest {
 
   @Test
   void throwable() {
-    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, "Throwable message");
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, "ServerError");
     client.get()
         .uri("/throwable")
         .exchange()
@@ -147,7 +147,7 @@ class AbstractWebExceptionHandlerTest {
 
   @Test
   void throwable_responseStatus_default() {
-    ListValueMap<String, String> errors = new DefaultListValueMap<>();
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, "ServerError");
     client.get()
         .uri("/throwable/response-status/default")
         .exchange()
@@ -164,7 +164,7 @@ class AbstractWebExceptionHandlerTest {
 
   @Test
   void throwable_responseStatus_code() {
-    ListValueMap<String, String> errors = new DefaultListValueMap<>();
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, "ServerError");
     client.get()
         .uri("/throwable/response-status/code")
         .exchange()
@@ -181,7 +181,7 @@ class AbstractWebExceptionHandlerTest {
 
   @Test
   void throwable_responseStatus_status() {
-    ListValueMap<String, String> errors = new DefaultListValueMap<>();
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, "ServerError");
     client.get()
         .uri("/throwable/response-status/status")
         .exchange()

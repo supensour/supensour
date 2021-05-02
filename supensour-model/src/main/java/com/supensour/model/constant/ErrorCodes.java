@@ -16,4 +16,6 @@ public final class ErrorCodes {
 
   public static final String NULL = "Null";
 
+  public static final String SERVER_ERROR = "ServerError";
+
 }

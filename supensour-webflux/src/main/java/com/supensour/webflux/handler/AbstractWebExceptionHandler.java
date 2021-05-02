@@ -4,6 +4,7 @@ import com.supensour.core.model.exception.ErrorsException;
 import com.supensour.core.model.exception.ReturnableException;
 import com.supensour.core.utils.ErrorUtils;
 import com.supensour.core.utils.ResponseUtils;
+import com.supensour.model.constant.ErrorCodes;
 import com.supensour.model.constant.FieldNames;
 import com.supensour.model.map.ListValueMap;
 import com.supensour.model.web.Response;
@@ -89,9 +90,7 @@ public abstract class AbstractWebExceptionHandler extends AbstractEmptyWebExcept
   protected Response<Object> throwable(Throwable throwable, ServerRequest request) {
     HttpStatus status = resolveGeneralThrowableStatus(throwable);
     Response<Object> response = ResponseUtils.status(status, getRequestId(throwable, request));
-    Optional.ofNullable(throwable.getMessage())
-        .filter(StringUtils::hasText)
-        .ifPresent(message -> response.getErrors().add(FieldNames.DEFAULT, message));
+    response.getErrors().add(FieldNames.DEFAULT, ErrorCodes.SERVER_ERROR);
     log(status, throwable, request, null);
     return response;
   }
