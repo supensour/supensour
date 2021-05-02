@@ -48,22 +48,22 @@ public abstract class AbstractWebExceptionHandler extends AbstractEmptyWebExcept
   }
 
   protected Response<Object> webExchangeBindException(Throwable throwable, ServerRequest request) {
-    WebExchangeBindException e = (WebExchangeBindException) throwable;
-    ListValueMap<String, String> errors = ErrorUtils.mapBindingResult(e.getBindingResult());
+    var e = (WebExchangeBindException) throwable;
+    var errors = ErrorUtils.mapBindingResult(e.getBindingResult());
     log(HttpStatus.BAD_REQUEST, e, request, errors);
     return ResponseUtils.badRequest(getRequestId(e, request), errors);
   }
 
   protected Response<Object> serverWebInputException(Throwable throwable, ServerRequest request) {
-    ServerWebInputException e = (ServerWebInputException) throwable;
-    ListValueMap<String, String> errors = ErrorUtils.mapServerWebInputException(e);
+    var e = (ServerWebInputException) throwable;
+    var errors = ErrorUtils.mapServerWebInputException(e);
     log(HttpStatus.BAD_REQUEST, e, request, errors);
     return ResponseUtils.badRequest(getRequestId(e, request), errors);
   }
 
   protected Response<Object> responseStatusException(Throwable throwable, ServerRequest request) {
-    ResponseStatusException e = (ResponseStatusException) throwable;
-    Response<Object> response = ResponseUtils.status(e.getStatus(), getRequestId(e, request));
+    var e = (ResponseStatusException) throwable;
+    var response = ResponseUtils.status(e.getStatus(), getRequestId(e, request));
     Optional.ofNullable(e.getReason())
         .filter(StringUtils::hasText)
         .ifPresent(reason -> response.getErrors().add(FieldNames.DEFAULT, reason));
@@ -72,24 +72,24 @@ public abstract class AbstractWebExceptionHandler extends AbstractEmptyWebExcept
   }
 
   protected Response<Object> returnableException(Throwable throwable, ServerRequest request) {
-    ReturnableException e = (ReturnableException) throwable;
+    var e = (ReturnableException) throwable;
     @SuppressWarnings("unchecked")
-    Response<Object> response = (Response<Object>) e.getResponse();
+    var response = (Response<Object>) e.getResponse();
     log(e.getStatus(), e, request, response.getErrors());
     return response;
   }
 
   protected Response<Object> errorsException(Throwable throwable, ServerRequest request) {
-    ErrorsException e = (ErrorsException) throwable;
-    Response<Object> response = ResponseUtils.status(e.getStatus(), getRequestId(e, request));
+    var e = (ErrorsException) throwable;
+    var response = ResponseUtils.status(e.getStatus(), getRequestId(e, request));
     response.setNativeErrorMap(e.getErrors());
     log(e.getStatus(), e, request, e.getErrors());
     return response;
   }
 
   protected Response<Object> throwable(Throwable throwable, ServerRequest request) {
-    HttpStatus status = resolveGeneralThrowableStatus(throwable);
-    Response<Object> response = ResponseUtils.status(status, getRequestId(throwable, request));
+    var status = resolveGeneralThrowableStatus(throwable);
+    var response = ResponseUtils.status(status, getRequestId(throwable, request));
     response.getErrors().add(FieldNames.DEFAULT, ErrorCodes.SERVER_ERROR);
     log(status, throwable, request, null);
     return response;

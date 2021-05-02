@@ -111,6 +111,8 @@ class StringUtilsTest {
     assertEquals(0, StringUtils.getLevenshteinDistance("same string", "same string"));
     assertEquals(0, StringUtils.getLevenshteinDistance("same string", "same string"));
     assertEquals(0, StringUtils.getLevenshteinDistance("", ""));
+    assertEquals(4, StringUtils.getLevenshteinDistance("", "test"));
+    assertEquals(4, StringUtils.getLevenshteinDistance("test", ""));
     assertEquals(0, StringUtils.getLevenshteinDistance("test", "test"));
     assertEquals(7, StringUtils.getLevenshteinDistance("a random string", "b rant0m 5+n1ng"));
     assertEquals(7, StringUtils.getLevenshteinDistance("b rant0m 5+n1ng", "a random string"));
@@ -132,6 +134,8 @@ class StringUtilsTest {
     assertEquals(1, getSimilarityWithLevenshteinDistance("same string", "same string"));
     assertEquals(1, getSimilarityWithLevenshteinDistance("same string", "same string"));
     assertEquals(1, getSimilarityWithLevenshteinDistance("", ""));
+    assertEquals(0, getSimilarityWithLevenshteinDistance("", "test"));
+    assertEquals(0, getSimilarityWithLevenshteinDistance("test", ""));
     assertEquals(1, getSimilarityWithLevenshteinDistance("test", "test"));
     assertEquals(0.53333, getSimilarityWithLevenshteinDistance("a random string", "b rant0m 5+n1ng"));
     assertEquals(0.53333, getSimilarityWithLevenshteinDistance("b rant0m 5+n1ng", "a random string"));

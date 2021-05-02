@@ -68,9 +68,9 @@ public class PagingUtils {
       return null;
     }
 
-    Sort.Direction direction = toDirection(sorting.getDirection());
-    Sort.NullHandling nullHandling = toNullHandling(sorting.getNullHandling());
-    Sort.Order order = new Sort.Order(direction, sorting.getField(), nullHandling);
+    var direction = toDirection(sorting.getDirection());
+    var nullHandling = toNullHandling(sorting.getNullHandling());
+    var order = new Sort.Order(direction, sorting.getField(), nullHandling);
     if (Boolean.TRUE.equals(sorting.getIgnoreCase())) {
       order = order.ignoreCase();
     }
