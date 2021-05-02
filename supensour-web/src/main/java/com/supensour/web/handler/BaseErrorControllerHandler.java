@@ -174,9 +174,7 @@ public interface BaseErrorControllerHandler {
     servletResponse.setStatus(status.value());
     String requestId = getRequestId(e, servletRequest, servletResponse);
     Response<Object> response = ResponseUtils.status(status, requestId);
-    Optional.ofNullable(e.getMessage())
-        .filter(StringUtils::hasText)
-        .ifPresent(message -> response.getErrors().add(FieldNames.DEFAULT, message));
+    response.getErrors().add(FieldNames.DEFAULT, ErrorCodes.SERVER_ERROR);
     log(status, e, servletRequest, servletResponse, null);
     return response;
   }

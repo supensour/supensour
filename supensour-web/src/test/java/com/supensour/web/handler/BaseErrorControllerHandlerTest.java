@@ -269,8 +269,7 @@ class BaseErrorControllerHandlerTest {
 
   @Test
   void throwable() {
-    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, "Throwable message");
-
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, ErrorCodes.SERVER_ERROR);
     given()
         .when()
         .accept(ContentType.JSON)
@@ -288,6 +287,7 @@ class BaseErrorControllerHandlerTest {
 
   @Test
   void throwable_responseStatus_default() {
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, ErrorCodes.SERVER_ERROR);
     given()
         .when()
         .accept(ContentType.JSON)
@@ -296,7 +296,7 @@ class BaseErrorControllerHandlerTest {
         .body("code", equalTo(HttpStatus.INTERNAL_SERVER_ERROR.value()))
         .body("status", equalTo(HttpStatus.INTERNAL_SERVER_ERROR.name()))
         .body("data", nullValue())
-        .body("errors", anEmptyMap())
+        .body("errors", equalTo(errors))
         .body("page", nullValue())
         .body("requestId", equalTo(ErrorController.REQUEST_ID))
         .body("success", is(false))
@@ -305,6 +305,7 @@ class BaseErrorControllerHandlerTest {
 
   @Test
   void throwable_responseStatus_code() {
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, ErrorCodes.SERVER_ERROR);
     given()
         .when()
         .accept(ContentType.JSON)
@@ -313,7 +314,7 @@ class BaseErrorControllerHandlerTest {
         .body("code", equalTo(HttpStatus.REQUEST_TIMEOUT.value()))
         .body("status", equalTo(HttpStatus.REQUEST_TIMEOUT.name()))
         .body("data", nullValue())
-        .body("errors", anEmptyMap())
+        .body("errors", equalTo(errors))
         .body("page", nullValue())
         .body("requestId", equalTo(ErrorController.REQUEST_ID))
         .body("success", is(false))
@@ -322,6 +323,7 @@ class BaseErrorControllerHandlerTest {
 
   @Test
   void throwable_responseStatus_status() {
+    ListValueMap<String, String> errors = new DefaultListValueMap<>(FieldNames.DEFAULT, ErrorCodes.SERVER_ERROR);
     given()
         .when()
         .accept(ContentType.JSON)
@@ -330,7 +332,7 @@ class BaseErrorControllerHandlerTest {
         .body("code", equalTo(HttpStatus.REQUEST_TIMEOUT.value()))
         .body("status", equalTo(HttpStatus.REQUEST_TIMEOUT.name()))
         .body("data", nullValue())
-        .body("errors", anEmptyMap())
+        .body("errors", equalTo(errors))
         .body("page", nullValue())
         .body("requestId", equalTo(ErrorController.REQUEST_ID))
         .body("success", is(false))
