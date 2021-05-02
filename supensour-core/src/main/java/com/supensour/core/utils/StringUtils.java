@@ -175,32 +175,50 @@ public class StringUtils extends org.springframework.util.StringUtils {
    * Levenshtein Distance counts the minimum number of operations needed
    * to transform a string to another with deletion, insertion, and substitution.
    *
-   * @param source the string to be transformed
-   * @param target the string to be transformed into
+   * @param source      the string to be transformed
+   * @param target      the string to be transformed into
    * @return the minimum number of operations needed for the transformation
    */
   public static int getLevenshteinDistance(String source, String target) {
+    return getLevenshteinDistance(source, target, false);
+  }
+
+  /**
+   * Levenshtein Distance counts the minimum number of operations needed
+   * to transform a string to another with deletion, insertion, and substitution.
+   *
+   * @param source      the string to be transformed
+   * @param target      the string to be transformed into
+   * @param ignoreCase  whether to ignore case-sensitive matching
+   * @return the minimum number of operations needed for the transformation
+   */
+  public static int getLevenshteinDistance(String source, String target, boolean ignoreCase) {
     int[] prevValues = IntStream.range(0, target.length() + 1).toArray();
 
-    for(int i = 0; i < source.length(); i++) {
-      int[] currValues = new int[target.length() + 1];
+    for(var i = 0; i < source.length(); i++) {
+      var currValues = new int[target.length() + 1];
       currValues[0] = i + 1;
 
-      for(int j = 0; j < target.length(); j++) {
+      for(var j = 0; j < target.length(); j++) {
         int deletionCost = prevValues[j + 1] + 1;
         int insertionCost = currValues[j] + 1;
         int substitutionCost = prevValues[j];
 
-        if(!isEqualIgnoreCase(source.charAt(i), target.charAt(j))) {
-          substitutionCost += 1;
+        if (ignoreCase) {
+          if(!isEqualIgnoreCase(source.charAt(i), target.charAt(j))) {
+            substitutionCost += 1;
+          }
+        } else {
+          if(source.charAt(i) != target.charAt(j)) {
+            substitutionCost += 1;
+          }
         }
         currValues[j+1] = Stream.of(deletionCost, insertionCost, substitutionCost)
             .min(Integer::compareTo)
-            .get();
+            .orElseThrow();
       }
       prevValues = currValues;
     }
-
     return prevValues[target.length()];
   }
 
@@ -213,13 +231,26 @@ public class StringUtils extends org.springframework.util.StringUtils {
    * @return similarity value of two strings ranged from 0 - 1
    */
   public static double getSimilarityWithLevenshteinDistance(String str1, String str2) {
+    return getSimilarityWithLevenshteinDistance(str1, str2, false);
+  }
+
+  /**
+   * This counts similarity value between two strings by using Levenshtein Distance
+   * algorithm to get the value of the disparity which is needed in its computation
+   *
+   * @param str1 one of the strings to be matched
+   * @param str2 another string to be matched
+   * @param ignoreCase  whether to ignore case-sensitive matching
+   * @return similarity value of two strings ranged from 0 - 1
+   */
+  public static double getSimilarityWithLevenshteinDistance(String str1, String str2, boolean ignoreCase) {
     Objects.requireNonNull(str1, "str1 is null");
     Objects.requireNonNull(str2, "str2 is null");
     if(isEmpty(str1) && isEmpty(str2)) {
       return 1;
     }
 
-    int disparity = getLevenshteinDistance(str1, str2);
+    int disparity = getLevenshteinDistance(str1, str2, ignoreCase);
     int longestStringLength = Math.max(str1.length(), str2.length());
     int parity = longestStringLength - disparity;
 
