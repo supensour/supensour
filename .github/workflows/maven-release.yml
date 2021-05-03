@@ -1,0 +1,89 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: "Release version"
+        required: false
+      developmentVersion:
+        description: "Next development version"
+        required: false
+      tag:
+        description: "Git tag"
+        required: false
+      autoVersionSubmodules:
+        description: "Auto version submodules (true/false)"
+        required: false
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Git
+      run: |
+        git config --global user.email "supensourbot@gmail.com"
+        git config --global user.name "${{ github.actor }} via action"
+    - name: Checkout Source Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+        server-id: 'supensour.sonatype.org'
+        server-username: MVN_USERNAME
+        server-password: MVN_PASSWORD
+        gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+        gpg-passphrase: MVN_GPG_PASSPHRASE
+    - name: Compile & Analyze Code
+      run: >
+        mvn -B -e -U -ntp
+        clean
+        org.jacoco:jacoco-maven-plugin:prepare-agent
+        package
+        org.jacoco:jacoco-maven-plugin:report
+        verify
+    - name: SonarCloud Scan
+      run: >
+        mvn -B -e -ntp sonar:sonar
+        -Dsonar.host.url=$SONAR_HOST
+        -Dsonar.login=$SONAR_TOKEN
+        -Dsonar.organization=supensour
+        -Dsonar.verbose=true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST: https://sonarcloud.io
+    - name: Maven Prepare Release
+      run: |
+        COMMAND=$(\
+          echo "mvn -B -e -U -ntp -DreleaseProfiles=release\
+          $( [[ -n "$PROJ_RELEASE_VERSION" ]] && echo "-DreleaseVersion=$PROJ_RELEASE_VERSION" )\
+          $( [[ -n "$PROJ_DEVELOPMENT_VERSION" ]] && echo "-DdevelopmentVersion=$PROJ_DEVELOPMENT_VERSION" )\
+          $( [[ -n "$PROJ_TAG" ]] && echo "-Dtag=$PROJ_TAG" )\
+          $( [[ "$PROJ_AUTO_VERSION_SUBMODULES" = "true" ]] && echo "-DautoVersionSubmodules" )\
+          -Darguments=\"-DskipTests\"\
+          clean\
+          release:prepare\
+        ")
+        echo $COMMAND
+        $COMMAND
+      env:
+        PROJ_RELEASE_VERSION: ${{ github.event.inputs.releaseVersion }}
+        PROJ_DEVELOPMENT_VERSION: ${{ github.event.inputs.developmentVersion }}
+        PROJ_TAG: ${{ github.event.inputs.tag }}
+        PROJ_AUTO_VERSION_SUBMODULES: ${{ github.event.inputs.autoVersionSubmodules }}
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: Maven Perform Release
+      run: mvn -B -e -U -ntp -DreleaseProfiles=release -Darguments="-DskipTests" release:perform
+      env:
+        MVN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        MVN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        MVN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}

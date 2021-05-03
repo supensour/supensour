@@ -45,7 +45,7 @@
 
   <scm>
     <connection>scm:git:https://github.com/supensour/supensour.git</connection>
-    <developerConnection>scm:git:git@github.com:supensour/supensour.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/supensour/supensour.git</developerConnection>
     <url>https://github.com/supensour/supensour</url>
     <tag>HEAD</tag>
   </scm>
@@ -54,6 +54,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
+    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
   </properties>
 
   <dependencies>
@@ -105,6 +106,47 @@
     </dependencies>
   </dependencyManagement>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${maven-gpg-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <repositories>
     <repository>
       <id>spring-milestones</id>
@@ -128,13 +170,12 @@
     <repository>
       <id>supensour.sonatype.org</id>
       <name>Supensour Sonatype Repository</name>
-      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
     </repository>
     <snapshotRepository>
-      <id>supensour.sonatype.org</id>
+      <id>supensour-snapshot.sonatype.org</id>
       <name>Supensour Sonatype Snapshot Repository</name>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-
 </project>

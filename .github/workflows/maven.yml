@@ -15,9 +15,11 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Source Code
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0
     - name: Set up JDK 11
