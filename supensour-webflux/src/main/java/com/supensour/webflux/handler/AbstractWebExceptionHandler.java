@@ -6,7 +6,6 @@ import com.supensour.core.utils.ErrorUtils;
 import com.supensour.core.utils.ResponseUtils;
 import com.supensour.model.constant.ErrorCodes;
 import com.supensour.model.constant.FieldNames;
-import com.supensour.model.map.ListValueMap;
 import com.supensour.model.web.Response;
 import com.supensour.webflux.model.function.ErrorHandlerPredicate;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -98,7 +97,7 @@ public abstract class AbstractWebExceptionHandler extends AbstractEmptyWebExcept
   @SuppressWarnings("DuplicatedCode")
   protected HttpStatus resolveGeneralThrowableStatus(Throwable throwable) {
     var status = HttpStatus.INTERNAL_SERVER_ERROR;
-    ResponseStatus responseStatus = throwable.getClass().getAnnotation(ResponseStatus.class);
+    var responseStatus = throwable.getClass().getAnnotation(ResponseStatus.class);
     if (responseStatus != null) {
       if (responseStatus.code() == responseStatus.value() || responseStatus.code() != HttpStatus.INTERNAL_SERVER_ERROR) {
         status = responseStatus.code();
