@@ -1,7 +1,6 @@
 package com.supensour.core.thread.task;
 
 import com.supensour.core.thread.setting.ContextAwareThreadSetting;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import java.util.concurrent.Callable;
  * @author Suprayan Yapura
  * @since 0.1.0
  */
-@Slf4j
 public class ContextAwareThreadTask<T> {
 
   @NonNull

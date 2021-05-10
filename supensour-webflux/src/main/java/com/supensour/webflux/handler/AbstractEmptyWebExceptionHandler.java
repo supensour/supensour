@@ -4,7 +4,6 @@ import com.supensour.model.web.Response;
 import com.supensour.webflux.model.dto.ErrorHandlerRegistry;
 import com.supensour.webflux.model.function.ErrorHandler;
 import com.supensour.webflux.model.function.ErrorHandlerPredicate;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
@@ -32,7 +31,6 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
  * @author Suprayan Yapura
  * @since 0.1.0
  */
-@Slf4j
 public abstract class AbstractEmptyWebExceptionHandler extends DefaultErrorWebExceptionHandler {
 
   private final List<ErrorHandlerRegistry> errorHandlerRegistries = new ArrayList<>();

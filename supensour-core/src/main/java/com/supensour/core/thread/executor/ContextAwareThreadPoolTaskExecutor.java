@@ -3,7 +3,6 @@ package com.supensour.core.thread.executor;
 import com.supensour.core.thread.setting.ContextAwareThreadSetting;
 import com.supensour.core.thread.task.ContextAwareCallable;
 import com.supensour.core.thread.task.ContextAwareRunnable;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.Assert;
@@ -18,7 +17,6 @@ import java.util.concurrent.Future;
  * @author Suprayan Yapura
  * @since 0.1.0
  */
-@Slf4j
 @SuppressWarnings("serial")
 public class ContextAwareThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
 
