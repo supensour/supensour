@@ -82,6 +82,7 @@ jobs:
         PROJ_DEVELOPMENT_VERSION: ${{ github.event.inputs.developmentVersion }}
         PROJ_TAG: ${{ github.event.inputs.tag }}
         PROJ_AUTO_VERSION_SUBMODULES: ${{ github.event.inputs.autoVersionSubmodules }}
+        GITHUB_TOKEN: wrong-pass
     - name: Maven Perform Release
       run: mvn -B -e -U -ntp -DreleaseProfiles=release -Darguments="-DskipTests" release:perform
       env:
