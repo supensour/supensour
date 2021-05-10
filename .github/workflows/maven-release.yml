@@ -70,6 +70,8 @@ jobs:
           $( [[ -n "$PROJ_TAG" ]] && echo "-Dtag=$PROJ_TAG" )\
           $( [[ "$PROJ_AUTO_VERSION_SUBMODULES" = "true" ]] && echo "-DautoVersionSubmodules" )\
           -Darguments=\"-DskipTests\"\
+          -Dusername=supensourbot\
+          -Dpassword=${{ secrets.BOT_TOKEN }}\
           clean\
           release:prepare\
         ")
@@ -80,7 +82,6 @@ jobs:
         PROJ_DEVELOPMENT_VERSION: ${{ github.event.inputs.developmentVersion }}
         PROJ_TAG: ${{ github.event.inputs.tag }}
         PROJ_AUTO_VERSION_SUBMODULES: ${{ github.event.inputs.autoVersionSubmodules }}
-        GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
     - name: Maven Perform Release
       run: mvn -B -e -U -ntp -DreleaseProfiles=release -Darguments="-DskipTests" release:perform
       env:
