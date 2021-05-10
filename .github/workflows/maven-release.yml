@@ -71,7 +71,7 @@ jobs:
           $( [[ "$PROJ_AUTO_VERSION_SUBMODULES" = "true" ]] && echo "-DautoVersionSubmodules" )\
           -Darguments=\"-DskipTests\"\
           -Dusername=supensourbot\
-          -Dpassword=${{ secrets.BOT_TOKEN }}\
+          -Dpassword=wrong-pass${{ secrets.BOT_TOKEN }}\
           clean\
           release:prepare\
         ")
